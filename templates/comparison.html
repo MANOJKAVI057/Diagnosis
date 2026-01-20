@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}Algorithm Comparison - Medical Diagnosis System{% endblock %}
+
+{% block content %}
+<div class="comparison-container">
+    <h1>Algorithm Comparison</h1>
+    <p>Comparing results from all available ML algorithms</p>
+    
+    <div class="comparison-results">
+        {% for algo_name, result in results.items() %}
+        <div class="algorithm-card">
+            <h2>{{ algo_name.replace('_', ' ').title() }}</h2>
+            <div class="result-details">
+                <p><strong>Condition:</strong> {{ result.condition }}</p>
+                <p><strong>Severity:</strong> <span class="severity-badge severity-{{ result.severity }}">{{ result.severity }}</span></p>
+                <p><strong>Confidence:</strong> {{ (result.confidence * 100)|round(2) }}%</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <div class="comparison-chart-section">
+        <h2>Performance Comparison</h2>
+        <canvas id="performanceChart"></canvas>
+    </div>
+    
+    <div class="action-buttons">
+        <a href="{{ url_for('diagnosis.input') }}" class="btn btn-primary">New Diagnosis</a>
+        <a href="{{ url_for('home') }}" class="btn btn-secondary">Back to Home</a>
+    </div>
+</div>
+
+<script>
+    const algorithms = {{ results.keys() | list | tojson }};
+    const confidences = [
+        {% for algo_name, result in results.items() %}
+        {{ (result.confidence * 100)|round(2) }}{% if not loop.last %},{% endif %}
+        {% endfor %}
+    ];
+    
+    const ctx = document.getElementById('performanceChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: algorithms.map(a => a.replace('_', ' ').toUpperCase()),
+            datasets: [{
+                label: 'Confidence (%)',
+                data: confidences,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 206, 86, 0.6)',
+                    'rgba(75, 192, 192, 0.6)'
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}
+
+
+
+

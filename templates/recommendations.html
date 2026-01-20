@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Health Recommendations - Medical Diagnosis System{% endblock %}
+
+{% block content %}
+<div class="recommendations-container">
+    <h1>Personalized Health Recommendations</h1>
+    
+    <div class="condition-info">
+        <h2>Based on your diagnosis: {{ condition }}</h2>
+        <p class="severity-badge severity-{{ severity }}">Severity: {{ severity.upper() }}</p>
+    </div>
+    
+    <div class="recommendations-section">
+        <div class="recommendation-card">
+            <h2>🍎 Diet Recommendations</h2>
+            <ul>
+                {% for rec in recommendations.diet %}
+                <li>{{ rec }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        
+        <div class="recommendation-card">
+            <h2>🏃 Exercise Recommendations</h2>
+            <ul>
+                {% for rec in recommendations.exercise %}
+                <li>{{ rec }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        
+        <div class="recommendation-card">
+            <h2>💤 Lifestyle Recommendations</h2>
+            <ul>
+                {% for rec in recommendations.lifestyle %}
+                <li>{{ rec }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    
+    <div class="action-buttons">
+        <a href="{{ url_for('diagnosis.input') }}" class="btn btn-primary">New Diagnosis</a>
+        <a href="{{ url_for('home') }}" class="btn btn-secondary">Back to Home</a>
+    </div>
+</div>
+{% endblock %}
+
+
+
+

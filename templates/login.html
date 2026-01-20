@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}Login / Register - Medical Diagnosis System{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-box">
+        <h1>{% if register_mode %}Create Account{% else %}Login{% endif %}</h1>
+        
+        {% if register_mode %}
+        <form method="POST" action="{{ url_for('auth.register') }}" class="auth-form">
+            <div class="form-group">
+                <label for="username">Username *</label>
+                <input type="text" id="username" name="username" required minlength="3">
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password *</label>
+                <input type="password" id="password" name="password" required minlength="6">
+            </div>
+            
+            <div class="form-group">
+                <label for="name">Name *</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="age">Age *</label>
+                <input type="number" id="age" name="age" required min="1" max="120">
+            </div>
+            
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <select id="gender" name="gender">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                    <option value="Prefer not to say">Prefer not to say</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="contact">Contact Number *</label>
+                <input type="tel" id="contact" name="contact" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="school_college">School/College Name (max 10 chars) *</label>
+                <input type="text" id="school_college" name="school_college" required maxlength="10">
+            </div>
+            
+            <div class="form-group">
+                <label for="gmail">Gmail ID *</label>
+                <input type="email" id="gmail" name="gmail" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="medical_history">Medical History (Optional)</label>
+                <textarea id="medical_history" name="medical_history" rows="3"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="emergency_contact">Emergency Contact (Optional)</label>
+                <input type="tel" id="emergency_contact" name="emergency_contact">
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Register</button>
+            <p class="auth-switch">
+                Already have an account? <a href="{{ url_for('auth.login') }}">Login here</a>
+            </p>
+        </form>
+        {% else %}
+        <form method="POST" action="{{ url_for('auth.login') }}" class="auth-form">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Login</button>
+            
+            <div class="auth-links">
+                <a href="{{ url_for('auth.forgot_password') }}">Forgot Password?</a>
+                <p class="auth-switch">
+                    Don't have an account? <a href="{{ url_for('auth.register') }}">Register here</a>
+                </p>
+            </div>
+        </form>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+
+
+

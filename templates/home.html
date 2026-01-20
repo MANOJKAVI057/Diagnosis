@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Medical Diagnosis System{% endblock %}
+
+{% block content %}
+<div class="home-container">
+    <div class="welcome-section">
+        <h1>Welcome, {{ user.name }}!</h1>
+        <p class="welcome-subtitle">Your trusted medical diagnosis platform</p>
+    </div>
+
+    <div class="health-tip-card">
+        <h2>💡 Health Tip of the Day</h2>
+        <p>{{ daily_tip }}</p>
+    </div>
+
+    <div class="emergency-info-card">
+        <h2>🚨 Emergency Contact Information</h2>
+        <div class="emergency-contacts">
+            <div class="emergency-item">
+                <strong>Emergency Services:</strong> 911 / 108
+            </div>
+            <div class="emergency-item">
+                <strong>Poison Control:</strong> 1-800-222-1222
+            </div>
+            <div class="emergency-item">
+                <strong>Medical Helpline:</strong> 102
+            </div>
+            {% if user.emergency_contact %}
+            <div class="emergency-item">
+                <strong>Your Emergency Contact:</strong> {{ user.emergency_contact }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="quick-actions">
+        <h2>Quick Actions</h2>
+        <div class="action-grid">
+            <a href="{{ url_for('diagnosis.input') }}" class="action-card">
+                <div class="action-icon">🏥</div>
+                <h3>New Diagnosis</h3>
+                <p>Submit a new medical diagnosis</p>
+            </a>
+            
+            <a href="{{ url_for('diagnosis.history') }}" class="action-card">
+                <div class="action-icon">📋</div>
+                <h3>View History</h3>
+                <p>Check your diagnosis records</p>
+            </a>
+            
+            <a href="{{ url_for('profile.view') }}" class="action-card">
+                <div class="action-icon">👤</div>
+                <h3>My Profile</h3>
+                <p>Update your information</p>
+            </a>
+            
+            <a href="{{ url_for('diagnosis.recommendations') }}" class="action-card">
+                <div class="action-icon">💊</div>
+                <h3>Health Tips</h3>
+                <p>Get personalized recommendations</p>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+
+

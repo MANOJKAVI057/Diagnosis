@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block title %}Diagnosis History - Medical Diagnosis System{% endblock %}
+
+{% block content %}
+<div class="history-container">
+    <h1>Diagnosis History</h1>
+    
+    <div class="history-filters">
+        <form method="GET" action="{{ url_for('diagnosis.history') }}" class="filter-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="filter_vital">Filter by Vital Sign</label>
+                    <select id="filter_vital" name="filter_vital">
+                        <option value="">All</option>
+                        <option value="temperature">Temperature</option>
+                        <option value="heart_rate">Heart Rate</option>
+                        <option value="systolic_bp">Systolic BP</option>
+                        <option value="diastolic_bp">Diastolic BP</option>
+                        <option value="respiratory_rate">Respiratory Rate</option>
+                        <option value="oxygen_saturation">Oxygen Saturation</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="filter_date">Filter by Date</label>
+                    <input type="date" id="filter_date" name="filter_date">
+                </div>
+                
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Filter</button>
+                    <a href="{{ url_for('diagnosis.history') }}" class="btn btn-secondary">Clear</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+    <div class="export-buttons">
+        <a href="{{ url_for('diagnosis.export_csv') }}" class="btn btn-secondary">Export as CSV</a>
+    </div>
+    
+    {% if diagnoses %}
+    <div class="history-table-container">
+        <table class="history-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Condition</th>
+                    <th>Severity</th>
+                    <th>Algorithm</th>
+                    <th>Temperature</th>
+                    <th>Heart Rate</th>
+                    <th>Blood Pressure</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for diagnosis in diagnoses %}
+                <tr>
+                    <td>{{ diagnosis.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                    <td>{{ diagnosis.get('patient_name', 'N/A') }}</td>
+                    <td>{{ diagnosis.get('patient_age', 'N/A') }}</td>
+                    <td>{{ diagnosis.result.condition }}</td>
+                    <td><span class="severity-badge severity-{{ diagnosis.result.severity }}">{{ diagnosis.result.severity }}</span></td>
+                    <td>{{ diagnosis.algorithm }}</td>
+                    <td>{{ diagnosis.vitals.temperature }}°F</td>
+                    <td>{{ diagnosis.vitals.heart_rate }} bpm</td>
+                    <td>{{ diagnosis.vitals.systolic_bp }}/{{ diagnosis.vitals.diastolic_bp }}</td>
+                    <td>
+                        <a href="{{ url_for('diagnosis.export_pdf', diagnosis_id=diagnosis._id) }}" class="btn btn-small">PDF</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="no-records">
+        <p>No diagnosis records found.</p>
+        <a href="{{ url_for('diagnosis.input') }}" class="btn btn-primary">Submit First Diagnosis</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+

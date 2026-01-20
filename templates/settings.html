@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Settings - Medical Diagnosis System{% endblock %}
+
+{% block content %}
+<div class="settings-container">
+    <h1>Settings</h1>
+    
+    <div class="settings-section">
+        <h2>Appearance</h2>
+        <form method="POST" action="{{ url_for('settings') }}" class="settings-form">
+            <input type="hidden" name="action" value="update_theme">
+            <div class="form-group">
+                <label for="theme">Theme</label>
+                <select id="theme" name="theme" onchange="this.form.submit()">
+                    <option value="light" {% if user.get('theme') == 'light' %}selected{% endif %}>Light Mode</option>
+                    <option value="dark" {% if user.get('theme') == 'dark' %}selected{% endif %}>Dark Mode</option>
+                </select>
+            </div>
+        </form>
+    </div>
+    
+    <div class="settings-section">
+        <h2>Language</h2>
+        <form method="POST" action="{{ url_for('settings') }}" class="settings-form">
+            <input type="hidden" name="action" value="update_language">
+            <div class="form-group">
+                <label for="language">Language</label>
+                <select id="language" name="language" onchange="this.form.submit()">
+                    <option value="en" {% if user.get('language') == 'en' %}selected{% endif %}>English</option>
+                    <option value="ta" {% if user.get('language') == 'ta' %}selected{% endif %}>Tamil</option>
+                </select>
+            </div>
+        </form>
+    </div>
+    
+    <div class="settings-section danger-zone">
+        <h2>Danger Zone</h2>
+        <p class="warning-text">⚠️ Warning: This action cannot be undone.</p>
+        <form method="POST" action="{{ url_for('settings') }}" class="settings-form" onsubmit="return confirm('Are you sure you want to delete your account? This action cannot be undone.');">
+            <input type="hidden" name="action" value="delete_account">
+            <button type="submit" class="btn btn-danger">Delete My Account</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+
+
+
