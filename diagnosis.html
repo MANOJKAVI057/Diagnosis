@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block title %}Diagnosis Input - Medical Diagnosis System{% endblock %}
+
+{% block content %}
+<div class="diagnosis-container">
+    <h1>Medical Diagnosis Input</h1>
+    
+    <form method="POST" action="{{ url_for('diagnosis.input') }}" enctype="multipart/form-data" class="diagnosis-form">
+        <div class="form-section">
+            <h2>Patient Information</h2>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="age">Age</label>
+                    <input type="number" id="age" name="age" required min="1" max="120">
+                </div>
+                
+                <div class="form-group">
+                    <label for="contact">Contact Number</label>
+                    <input type="tel" id="contact" name="contact" required>
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-section">
+            <h2>Vital Signs</h2>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="temperature">Body Temperature (°F)</label>
+                    <input type="number" id="temperature" name="temperature" step="0.1" value="98.6" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="heart_rate">Heart Rate (bpm)</label>
+                    <input type="number" id="heart_rate" name="heart_rate" value="72" required>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="systolic_bp">Systolic Blood Pressure (mmHg)</label>
+                    <input type="number" id="systolic_bp" name="systolic_bp" value="120" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="diastolic_bp">Diastolic Blood Pressure (mmHg)</label>
+                    <input type="number" id="diastolic_bp" name="diastolic_bp" value="80" required>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="respiratory_rate">Respiratory Rate (/min)</label>
+                    <input type="number" id="respiratory_rate" name="respiratory_rate" value="16" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="oxygen_saturation">Oxygen Saturation (%)</label>
+                    <input type="number" id="oxygen_saturation" name="oxygen_saturation" value="98" required min="0" max="100">
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-section">
+            <h2>Medical Image Upload (Optional)</h2>
+            <div class="form-group">
+                <label for="medical_image">Upload X-ray, MRI, or Skin Image</label>
+                <input type="file" id="medical_image" name="medical_image" accept="image/*,.dcm">
+                <small>Supported formats: PNG, JPG, JPEG, GIF, DICOM (max 16MB)</small>
+            </div>
+        </div>
+        
+        <div class="form-section">
+            <h2>Algorithm Selection</h2>
+            <div class="form-group">
+                <label for="algorithm">Select ML Algorithm</label>
+                <select id="algorithm" name="algorithm" required>
+                    <option value="logistic_regression">Logistic Regression</option>
+                    <option value="svm">SVM (Support Vector Machine)</option>
+                    <option value="cnn">CNN (Convolutional Neural Network)</option>
+                    <option value="lstm">LSTM (Long Short-Term Memory)</option>
+                </select>
+                <small>CNN is recommended for image analysis</small>
+            </div>
+        </div>
+        
+        <button type="submit" class="btn btn-primary btn-large">Submit Diagnosis</button>
+    </form>
+</div>
+{% endblock %}
+
+
+
+

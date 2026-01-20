@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block title %}Diagnosis Result - Medical Diagnosis System{% endblock %}
+
+{% block content %}
+<div class="result-container">
+    <h1>Diagnosis Results</h1>
+    
+    <div class="result-card {% if result.severity == 'critical' %}critical{% elif result.severity == 'moderate' %}moderate{% else %}normal{% endif %}">
+        <div class="result-header">
+            <h2>Diagnosis Result</h2>
+            <span class="severity-badge severity-{{ result.severity }}">{{ result.severity.upper() }}</span>
+        </div>
+        
+        <div class="result-content">
+            <div class="result-item">
+                <strong>Condition:</strong> {{ result.condition }}
+            </div>
+            <div class="result-item">
+                <strong>Algorithm Used:</strong> {{ result.algorithm }}
+            </div>
+            <div class="result-item">
+                <strong>Confidence:</strong> {{ (result.confidence * 100)|round(2) }}%
+            </div>
+        </div>
+    </div>
+    
+    <div class="comparison-section">
+        <h2>Vital Signs Comparison</h2>
+        <canvas id="comparisonChart"></canvas>
+    </div>
+    
+    <div class="action-buttons">
+        <a href="{{ url_for('diagnosis.export_pdf', diagnosis_id='latest') }}" class="btn btn-secondary">Download PDF Report</a>
+        <a href="{{ url_for('diagnosis.recommendations') }}" class="btn btn-primary">View Health Recommendations</a>
+        <a href="{{ url_for('diagnosis.comparison') }}" class="btn btn-secondary">Compare Algorithms</a>
+        <a href="{{ url_for('diagnosis.input') }}" class="btn btn-outline">New Diagnosis</a>
+    </div>
+</div>
+
+{% if is_critical %}
+<div id="emergency-modal" class="emergency-modal">
+    <div class="emergency-modal-content">
+        <h2>🚨 CRITICAL CONDITION DETECTED</h2>
+        <p>Your diagnosis shows critical values. Please seek immediate medical attention.</p>
+        <a href="{{ url_for('emergency') }}" class="btn btn-danger">Go to Emergency Alert Page</a>
+        <button onclick="closeEmergencyModal()" class="btn btn-secondary">Close</button>
+    </div>
+</div>
+{% endif %}
+
+<script>
+    // Chart data
+    const normalData = {{ normal_values | tojson }};
+    const currentData = {{ result.vitals | tojson }};
+    
+    const ctx = document.getElementById('comparisonChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Temperature (°F)', 'Heart Rate (bpm)', 'Systolic BP (mmHg)', 'Diastolic BP (mmHg)', 'Respiratory Rate (/min)', 'Oxygen Saturation (%)'],
+            datasets: [{
+                label: 'Normal Values',
+                data: [
+                    normalData.temperature,
+                    normalData.heart_rate,
+                    normalData.systolic_bp,
+                    normalData.diastolic_bp,
+                    normalData.respiratory_rate,
+                    normalData.oxygen_saturation
+                ],
+                backgroundColor: 'rgba(75, 192, 192, 0.6)'
+            }, {
+                label: 'Your Values',
+                data: [
+                    parseFloat(currentData.temperature),
+                    parseFloat(currentData.heart_rate),
+                    parseFloat(currentData.systolic_bp),
+                    parseFloat(currentData.diastolic_bp),
+                    parseFloat(currentData.respiratory_rate),
+                    parseFloat(currentData.oxygen_saturation)
+                ],
+                backgroundColor: 'rgba(255, 99, 132, 0.6)'
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+    
+    {% if is_critical %}
+    function closeEmergencyModal() {
+        document.getElementById('emergency-modal').style.display = 'none';
+    }
+    {% endif %}
+</script>
+{% endblock %}
+
+
+
+

@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}Help - Medical Diagnosis System{% endblock %}
+
+{% block content %}
+<div class="help-container">
+    <h1>User Guide</h1>
+    
+    <div class="help-section">
+        <h2>Getting Started</h2>
+        <ol>
+            <li><strong>Registration:</strong> Create an account with your username, password, personal details, and Gmail ID.</li>
+            <li><strong>Login:</strong> Use your username and password to access the system.</li>
+            <li><strong>Forgot Password:</strong> Use your Gmail ID and School/College name to recover your password.</li>
+        </ol>
+    </div>
+    
+    <div class="help-section">
+        <h2>Submitting a Diagnosis</h2>
+        <ol>
+            <li>Navigate to the "Diagnosis" page from the menu.</li>
+            <li>Fill in patient information (Name, Age, Contact Number).</li>
+            <li>Enter vital signs (Temperature, Heart Rate, Blood Pressure, etc.).</li>
+            <li>Optionally upload medical images (X-ray, MRI, skin images).</li>
+            <li>Select an ML algorithm (Logistic Regression, SVM, CNN, or LSTM).</li>
+            <li>Click "Submit Diagnosis" to get results.</li>
+        </ol>
+    </div>
+    
+    <div class="help-section">
+        <h2>Understanding Results</h2>
+        <ul>
+            <li><strong>Green:</strong> Normal condition - no immediate action needed.</li>
+            <li><strong>Yellow:</strong> Moderate condition - monitor and follow recommendations.</li>
+            <li><strong>Red:</strong> Critical condition - seek immediate medical attention.</li>
+        </ul>
+        <p>The results page shows a comparison chart of your vital signs vs. normal values.</p>
+    </div>
+    
+    <div class="help-section">
+        <h2>Emergency Alerts</h2>
+        <p>If your diagnosis shows critical results, the Emergency Alert page will automatically open with:</p>
+        <ul>
+            <li>Emergency contact numbers</li>
+            <li>Nearby hospitals information</li>
+            <li>Emergency call buttons</li>
+        </ul>
+    </div>
+    
+    <div class="help-section">
+        <h2>Viewing History</h2>
+        <ol>
+            <li>Go to the "History" page.</li>
+            <li>Filter records by vital sign or date if needed.</li>
+            <li>Export records as CSV or download individual PDF reports.</li>
+        </ol>
+    </div>
+    
+    <div class="help-section">
+        <h2>Health Recommendations</h2>
+        <p>After submitting a diagnosis, visit the "Recommendations" page for personalized:</p>
+        <ul>
+            <li>Diet suggestions</li>
+            <li>Exercise recommendations</li>
+            <li>Lifestyle modifications</li>
+        </ul>
+    </div>
+    
+    <div class="help-section">
+        <h2>Settings</h2>
+        <ul>
+            <li><strong>Theme:</strong> Switch between light and dark mode.</li>
+            <li><strong>Language:</strong> Choose between English and Tamil.</li>
+            <li><strong>Delete Account:</strong> Permanently delete your account and all data.</li>
+        </ul>
+    </div>
+    
+    <div class="help-section">
+        <h2>AI Chatbot</h2>
+        <p>The chatbot in the bottom-right corner can help you with:</p>
+        <ul>
+            <li>General questions about the system</li>
+            <li>Form guidance</li>
+            <li>Usage instructions</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
+
+
+
+

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Emergency Alert - Medical Diagnosis System{% endblock %}
+
+{% block content %}
+<div class="emergency-container">
+    <div class="emergency-alert">
+        <h1>🚨 EMERGENCY ALERT</h1>
+        <p class="emergency-message">Critical condition detected. Please seek immediate medical attention.</p>
+    </div>
+    
+    <div class="emergency-actions">
+        <a href="tel:911" class="btn btn-danger btn-large">Call 911</a>
+        <a href="tel:108" class="btn btn-danger btn-large">Call 108</a>
+    </div>
+    
+    <div class="hospitals-section">
+        <h2>Nearby Hospitals</h2>
+        <div id="hospital-map" class="hospital-map">
+            <p>Map integration would show nearby hospitals here</p>
+            <div class="hospital-list">
+                <div class="hospital-item">
+                    <h3>General Hospital</h3>
+                    <p>📍 123 Medical Street, City</p>
+                    <p>📞 (555) 123-4567</p>
+                    <p>Distance: 2.3 miles</p>
+                </div>
+                <div class="hospital-item">
+                    <h3>City Medical Center</h3>
+                    <p>📍 456 Health Avenue, City</p>
+                    <p>📞 (555) 234-5678</p>
+                    <p>Distance: 3.1 miles</p>
+                </div>
+                <div class="hospital-item">
+                    <h3>Emergency Care Hospital</h3>
+                    <p>📍 789 Emergency Road, City</p>
+                    <p>📞 (555) 345-6789</p>
+                    <p>Distance: 4.5 miles</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="emergency-info">
+        <h2>Emergency Information</h2>
+        <ul>
+            <li>Stay calm and call emergency services immediately</li>
+            <li>Have your medical history and current medications ready</li>
+            <li>If possible, have someone drive you or call an ambulance</li>
+            <li>Bring your ID and insurance information</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
+
+
+
+
